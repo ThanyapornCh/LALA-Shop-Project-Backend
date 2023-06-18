@@ -1,4 +1,5 @@
 const multer = require('multer');
+const chalk = require('chalk');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -7,7 +8,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     console.log(req);
     console.log(file);
-    console.log(chalk.cyan('yyyyyy'));
+    console.log(chalk.blue('yyyyy'));
     console.log(chalk.magenta('nnnnnnn'));
     cb(
       null,
