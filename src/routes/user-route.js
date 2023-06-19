@@ -5,7 +5,7 @@ const upload = require('../middlewares/upload');
 
 const router = express.Router();
 
-// router.get('/:userId', userController.getuserInfoById);
+router.get('/:userId', userController.getuserInfoById);
 router.patch(
   '/',
   upload.fields([

@@ -4,29 +4,30 @@ const fs = require('fs');
 const createError = require('../utils/create-error');
 const cloudinary = require('../utils/cloudinary');
 
-// exports.getuserInfoById = async (req, res, next) => {
-//   try {
-//     const user = await User.findOne({
-//       where: {
-//         id: req.params.userId,
-//       },
-//       attributes: {
-//         exclude: ['password'],
-//       },
-//     });
+exports.getuserInfoById = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.params.userId,
+      },
+      attributes: {
+        exclude: ['password'],
+      },
+    });
 
-//     if (!user) {
-//       createError('user with this id is not found', 400);
-//     }
+    if (!user) {
+      createError('user with this id is not found', 400);
+    }
 
-//     let statusWithAuthUser;
-//     if (req.user.id === +req.params.userId) {
-//       statusWithAuthUser = STATUS_ME;
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+    let statusWithAuthUser;
+    if (req.user.id === +req.params.userId) {
+      statusWithAuthUser = STATUS_ME;
+    }
+    res.status(200).json({ message: 'get usser with id' });
+  } catch (err) {
+    next(err);
+  }
+};
 exports.updateProfileImage = async (req, res, next) => {
   try {
     let value;
@@ -61,7 +62,7 @@ exports.updateProfileImage = async (req, res, next) => {
     }
 
     await User.update(value, { where: { id: req.user.id } });
-    res.status(200).json({ message: 'success update' });
+    res.status(200).json(value);
   } catch (err) {
     next(err);
   } finally {
