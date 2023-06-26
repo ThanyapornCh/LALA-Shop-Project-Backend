@@ -12,12 +12,18 @@ module.exports = async (req, res, next) => {
     const token = authorization.split(' ')[1];
     const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
     const user = await User.findOne({
-      where: { id: payload.id },
+      where: { id: payload.id, status: 'admin' },
       attributes: {
         exclude: ['password'],
       },
     });
-    if (user.status === STATUS_ADMIN) {
+
+    // const admin = await User.findOne({
+    //   where: { status: 'admin' },
+    // });
+
+    if (user.status === 'admin') {
+      req.user = user;
       next();
     }
     createError('You are unauthorized, You are not admin', 401);
