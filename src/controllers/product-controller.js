@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Product } = require('../models');
+const { Product, Brand } = require('../models');
 const cloudinary = require('../utils/cloudinary');
 
 exports.createProduct = async (req, res, next) => {
@@ -25,4 +25,16 @@ exports.createProduct = async (req, res, next) => {
       fs.unlinkSync(req.file.path);
     }
   }
+};
+
+exports.getAllProduct = async (req, res, next) => {
+  const product = await Product.findAll();
+  console.log(product);
+  res.status(200).json({ product });
+};
+
+exports.getAllBrand = async (req, res, next) => {
+  const brand = await Brand.findAll();
+  console.log(brand);
+  res.status(200).json({ brand });
 };
