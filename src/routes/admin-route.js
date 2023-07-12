@@ -7,8 +7,8 @@ const productController = require('../controllers/product-controller');
 const upload = require('../middlewares/upload');
 
 router.post('/create', upload.single('image'), productController.createProduct);
-router.patch(
-  '/product/update',
+router.put(
+  '/product/update/:productId',
   upload.single('image'),
   productController.updateProduct
 );

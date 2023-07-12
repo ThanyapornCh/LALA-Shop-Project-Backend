@@ -28,15 +28,16 @@ exports.createProduct = async (req, res, next) => {
 };
 
 exports.updateProduct = async (req, res, next) => {
+  const productId = req.params;
+
   try {
     console.log(req.file.path);
     const updateurl = await cloudinary.upload(req.file.path);
     console.log(updateurl);
 
-    const productId = req.params;
     const updateValue = {
+      image: updateurl,
       name: req.body.name,
-      image: req.body.image,
       price: req.body.price,
       description: req.body.description,
       quantity: req.body.quantity,
@@ -49,10 +50,20 @@ exports.updateProduct = async (req, res, next) => {
         },
       }
     );
+
+    if (!updateProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    // const product = await Product.update({updateValue})
+
     // console.log(updateProduct);
-    res.status(200).json({ updateProduct });
+    res.status(200).json({ updateValue });
   } catch (err) {
     next(err);
+  } finally {
+    if (req.file) {
+      fs.unlinkSync(req.file.path);
+    }
   }
 };
 exports.deleteProduct = async (req, res, next) => {
