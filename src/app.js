@@ -11,6 +11,7 @@ const rateLimit = require('express-rate-limit');
 
 const authRoute = require('./routes/auth-route');
 const userRoute = require('./routes/user-route');
+const orderRoute = require('./routes/order-route');
 
 const adminRoute = require('./routes/admin-route');
 
@@ -36,6 +37,7 @@ app.use(express.json());
 
 app.use('/auth', authRoute);
 app.use('/users', authenticateMiddleware, userRoute);
+app.use('/order', authenticateMiddleware, orderRoute);
 
 app.use('/admin', adminRoute);
 
