@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Order } = require('../models');
 const { STATUS_ME } = require('../config/constant');
 const fs = require('fs');
 const createError = require('../utils/create-error');
@@ -72,5 +72,46 @@ exports.updateProfileImage = async (req, res, next) => {
     if (req.files.coverImage) {
       fs.unlinkSync(req.files.coverImage[0].path);
     }
+  }
+};
+
+exports.uploadSlip = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    console.log(userId);
+    const order = await Order.findOne({
+      where: {
+        userId: userId,
+        orderStatus: 'Cart',
+      },
+    });
+
+    const url = await cloudinary.upload(req.file.path);
+    console.log(url);
+    const value = { slipUrl: url, orderStatus: 'Paid' };
+    console.log(value);
+    await order.update(value);
+    res.status(200).json({ message: 'Upload to be success!' });
+  } catch (err) {
+    next(err);
+  } finally {
+  }
+};
+
+exports.getBill = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const billOrder = await Order.findOne({
+      where: {
+        orderStatus: 'Paid',
+        userId: userId,
+      },
+    });
+    console.log(billOrder);
+    res
+      .status(200)
+      .json({ message: 'get bill order to be success', billOrder });
+  } catch (err) {
+    next(err);
   }
 };

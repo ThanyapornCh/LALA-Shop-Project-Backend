@@ -183,3 +183,16 @@ exports.getOrder = async (req, res, next) => {
   });
   res.status(200).json({ orders });
 };
+
+exports.getCheckOrder = async (req, res, next) => {
+  try {
+    const checkOrder = await Order.findAll();
+
+    res.status(200).json({
+      message: 'Admin check order status of the user to be success!  ',
+      checkOrder,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
