@@ -28,7 +28,7 @@ exports.createProduct = async (req, res, next) => {
 };
 
 exports.updateProduct = async (req, res, next) => {
-  const productId = req.params;
+  const { productId } = req.params;
 
   try {
     console.log(req.file.path);
@@ -43,21 +43,18 @@ exports.updateProduct = async (req, res, next) => {
       quantity: req.body.quantity,
     };
     const updateProduct = await Product.update(
-      { updateValue },
-      {
-        where: {
-          id: Number(productId),
-        },
-      }
+      { ...updateValue },
+      { where: { id: Number(productId) } }
     );
 
-    if (!updateProduct) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    // const product = await Product.update({updateValue})
-
-    // console.log(updateProduct);
-    res.status(200).json({ updateValue });
+    console.log(updateProduct);
+    res
+      .status(200)
+      .json({
+        message: 'Update product to be sucess!',
+        ...updateProduct,
+        productId,
+      });
   } catch (err) {
     next(err);
   } finally {

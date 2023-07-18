@@ -196,3 +196,41 @@ exports.getCheckOrder = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getOrderStatus = async (req, res, next) => {
+  try {
+    const ordercart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'Cart',
+      },
+      include: {
+        model: OrderItem,
+        include: {
+          model: Product,
+        },
+      },
+    });
+    const orderpaid = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        orderStatus: 'Paid',
+      },
+      include: {
+        model: OrderItem,
+        include: {
+          model: Product,
+        },
+      },
+    });
+    res
+      .status(200)
+      .json({
+        message: 'Get order Status for User to be success!',
+        ordercart,
+        orderpaid,
+      });
+  } catch (err) {
+    next(err);
+  }
+};

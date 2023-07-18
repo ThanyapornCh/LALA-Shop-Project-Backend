@@ -13,5 +13,6 @@ router.delete(
 );
 
 router.get('/', authenticate, orderController.getOrder);
+router.get('/orderstatus', authenticate, orderController.getOrderStatus);
 
 module.exports = router;
