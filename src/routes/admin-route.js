@@ -1,12 +1,12 @@
 const express = require('express');
 
-const router = express.Router();
-
 // const adminAuthenticate = require('../middlewares/admin-authenticate');
 const authenticate = require('../middlewares/authenticate');
 const productController = require('../controllers/product-controller');
 const orderController = require('../controllers/order-controller');
 const upload = require('../middlewares/upload');
+
+const router = express.Router();
 
 router.post('/create', upload.single('image'), productController.createProduct);
 router.put(
