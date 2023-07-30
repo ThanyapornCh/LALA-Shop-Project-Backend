@@ -8,6 +8,27 @@ const chalk = require('chalk');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+// const omise = require('omise')({
+//   publicKey: process.env.OMISE_PUBLIC_KEY,
+// });
+
+// console.log(process.env.OMISE_PUBLIC_KEY);
+
+// const createCharge = async () => {
+//   const customer = await omise.customers.create({
+//     email: 'john.doe@example.com',
+//     description: 'John Doe (id: 30)',
+//     card: token.id,
+//   });
+
+//   const charge = await omise.charges.create({
+//     amount: 10000,
+//     currency: 'thb',
+//     customer: customer.id,
+//   });
+//   console.log('Charge--->', charge);
+// };
+// createCharge();
 
 const authRoute = require('./routes/auth-route');
 const userRoute = require('./routes/user-route');
