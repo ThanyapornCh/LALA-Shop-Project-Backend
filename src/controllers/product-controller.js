@@ -6,7 +6,7 @@ exports.createProduct = async (req, res, next) => {
   try {
     // console.log(req.file.path);
     const url = await cloudinary.upload(req.file.path);
-    console.log(url);
+    // console.log(url);
     const value = {
       brandId: req.body.brandId,
       categoryId: req.body.categoryId,
@@ -33,7 +33,7 @@ exports.updateProduct = async (req, res, next) => {
   try {
     console.log(req.file.path);
     const updateurl = await cloudinary.upload(req.file.path);
-    console.log(updateurl);
+    // console.log(updateurl);
 
     const updateValue = {
       image: updateurl,
@@ -47,14 +47,12 @@ exports.updateProduct = async (req, res, next) => {
       { where: { id: Number(productId) } }
     );
 
-    console.log(updateProduct);
-    res
-      .status(200)
-      .json({
-        message: 'Update product to be sucess!',
-        ...updateProduct,
-        productId,
-      });
+    // console.log(updateProduct);
+    res.status(200).json({
+      message: 'Update product to be sucess!',
+      ...updateProduct,
+      productId,
+    });
   } catch (err) {
     next(err);
   } finally {

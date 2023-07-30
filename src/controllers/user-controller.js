@@ -87,9 +87,9 @@ exports.uploadSlip = async (req, res, next) => {
     });
 
     const url = await cloudinary.upload(req.file.path);
-    console.log(url);
+    // console.log(url);
     const value = { slipUrl: url, orderStatus: 'Paid' };
-    console.log(value);
+    // console.log(value);
     await order.update(value);
     res.status(200).json({ message: 'Upload to be success!' });
   } catch (err) {
@@ -107,7 +107,7 @@ exports.getBill = async (req, res, next) => {
         userId: userId,
       },
     });
-    console.log(billOrder);
+    // console.log(billOrder);
     res
       .status(200)
       .json({ message: 'get bill order to be success', billOrder });

@@ -1,6 +1,5 @@
 const express = require('express');
 
-// const adminAuthenticate = require('../middlewares/admin-authenticate');
 const authenticate = require('../middlewares/authenticate');
 const productController = require('../controllers/product-controller');
 const orderController = require('../controllers/order-controller');

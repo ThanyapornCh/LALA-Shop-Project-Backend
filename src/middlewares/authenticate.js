@@ -23,9 +23,9 @@ module.exports = async (req, res, next) => {
         exclude: ['password'],
       },
     });
-    console.log(payload.status);
+    // console.log(payload.status);
 
-    console.log(user.status);
+    // console.log(user.status);
 
     if (user) {
       if (user.status === 'user') {
@@ -38,11 +38,6 @@ module.exports = async (req, res, next) => {
     } else {
       createError('you are unauthorized', 400);
     }
-    // if (!user) {
-    //   createError('you are unauthorized', 400);
-    // }
-    // req.user = user;
-    // next();
   } catch (err) {
     next(err);
   }
